@@ -1,31 +1,35 @@
-// Everything doesn't needs to be in a class anymore
-val foo = "Bar"
-
-// * make cheeseOpinion optional
-data class Person(val name: Name, val age: Int, val cheeseOpinion: CheeseOpinion)
-
-// * make me a data class
 class Name(first: String, last: String)
 
-// Classes are cheap, use them
+data class Person(val name: Name, val age: Int, val societalPosition: SocietialPosition)
+fun Person.guillotinePriority() = societalPosition.ordinal
 
-enum class CheeseOpinion {
-  HATES,
-  LOATHES,
-  LOVES,
-  ADORES
+enum class SocietialPosition {
+  RULING,
+  BOUGIE,
+  PETIT_BOUGIE,
+  SOFTWARE_ENGINEERS,
+  PROLE,
+  ROYALTY,
 }
 
 fun main(args: Array<String>) {
-  println("foo = $foo")
+  val james = Person(Name("James", "Fraser"), 38, SocietialPosition.BOUGIE)
 
-  // * make use of named parameters
-  val jimmy = Person(Name("Slipping", "Jimmy"), 29, CheeseOpinion.ADORES)
-  println("Jimmy = $jimmy")
+  // Destructuring James
 
-  // Lets play with componentN() from the data class Person
-  val (name, age, cheeseOpinion) = jimmy
-  // * print the Jimmy's opinion on cheese
+  val (name, age, position) = james
+  println("""
+    [MELBOURNE REVOLUTIONARY GUARD, FORM 27b stroke 6]
 
-  // * make a copy of jimmy who loathes cheese
+    Name: $name ($age years of age)
+    Crime Against the State: Being a $position
+  """.trimIndent())
+
+  // Make a copy of James with some differences
+  james.copy(societalPosition = SocietialPosition.BOUGIE)
+
+  TODO("Make name a data class")
+  TODO("Make societalPosition parameter optional")
+  TODO("use of named parameters for instantiating Person")
+  TODO("Make Name print correctly as 'first last'")
 }
